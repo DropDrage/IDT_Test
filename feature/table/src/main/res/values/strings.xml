@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="table_title_loading">Loading...</string>
+    <string name="table_back_arrow_content_description">Back</string>
+    <string name="table_title_table_loaded">Table %1$dx%2$d</string>
+    <string name="table_edit_dialog_title">Edit Cell Data</string>
+    <string name="table_edit_dialog_input_label">Value</string>
+    <string name="table_edit_dialog_save">Save</string>
+    <string name="table_edit_dialog_cancel">Cancel</string>
+</resources>

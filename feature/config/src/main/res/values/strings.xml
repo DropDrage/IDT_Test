@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="config_title">Table Generator (Tablet)</string>
+    <string name="config_row_input_hint">Rows (Max: 1000)</string>
+    <string name="config_column_input_hint">Columns (Max: 6)</string>
+    <string name="config_row_validation_error">Rows must be between 1 and 1000</string>
+    <string name="config_column_validation_error">Columns must be between 1 and 6</string>
+    <string name="config_generate_button">Generate table</string>
+</resources>

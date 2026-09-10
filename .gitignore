@@ -1,0 +1,23 @@
+*.iml
+.gradle
+.DS_Store
+
+/.idea
+
+.gradle/
+.kotlin/
+build/
+/build
+*/build
+/captures
+
+# lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+
+/local.properties
+.externalNativeBuild
+.cxx
+local.properties
