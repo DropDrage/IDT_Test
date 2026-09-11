@@ -50,26 +50,38 @@ class ConfigViewModel(
         val value = filtered.toIntOrNull()
         return state.copy(
             rows = filtered,
-            rowsError =
-                if (!rowsValidator.isValid(value)) TextResource.id(R.string.config_row_validation_error)
-                else null,
+            rowsError = validateRows(value),
         )
     }
+
+    private fun validateRows(value: Int?): TextResource? =
+        if (!rowsValidator.isValid(value)) TextResource.id(R.string.config_row_validation_error)
+        else null
 
     private fun onColumnsChanged(state: UiState, command: Command.ColumnsChanged): UiState {
         val filtered = command.value.filter { it.isDigit() }
         val value = filtered.toIntOrNull()
         return state.copy(
             columns = filtered,
-            columnsError =
-                if (!columnsValidator.isValid(value)) TextResource.id(R.string.config_column_validation_error)
-                else null,
+            columnsError = validateColumns(value),
         )
     }
 
+    private fun validateColumns(value: Int?): TextResource? =
+        if (!columnsValidator.isValid(value)) TextResource.id(R.string.config_column_validation_error)
+        else null
+
     private fun validateAndGenerate(state: UiState) {
-        if (state.rowsError == null && state.columnsError == null) {
+        val validatedState = validateState(state)
+        if (validatedState.rowsError == null && validatedState.columnsError == null) {
             _news.tryEmit(News.Generate)
+        } else {
+            _uiState.tryEmit(validatedState)
         }
     }
+
+    private fun validateState(state: UiState): UiState = state.copy(
+        rowsError = validateRows(state.rows.toIntOrNull()),
+        columnsError = validateColumns(state.columns.toIntOrNull()),
+    )
 }

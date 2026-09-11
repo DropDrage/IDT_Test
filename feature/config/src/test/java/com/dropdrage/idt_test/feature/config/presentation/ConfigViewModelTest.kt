@@ -40,7 +40,7 @@ internal class ConfigViewModelTest : BehaviorSpec(
             Dispatchers.resetMain()
         }
 
-        given("ConfigViewModel") {
+        given("ConfigViewModel in initial state") {
             then("initial state has empty fields and no errors") {
                 viewModel.uiState.value shouldBe UiState(
                     rows = "",
@@ -48,6 +48,23 @@ internal class ConfigViewModelTest : BehaviorSpec(
                     rowsError = null,
                     columnsError = null,
                 )
+            }
+
+            `when`("Generate is dispatched") {
+                then("initial state has empty fields and no errors") {
+                    viewModel.news.test {
+                        viewModel.command(Command.Generate)
+
+                        expectNoEvents()
+                        cancelAndIgnoreRemainingEvents()
+
+                        val state = viewModel.uiState.value
+                        state.rows shouldBe ""
+                        state.rowsError shouldBe rowsValidationError
+                        state.columns shouldBe ""
+                        state.columnsError shouldBe columnsValidationError
+                    }
+                }
             }
         }
 
@@ -208,12 +225,7 @@ internal class ConfigViewModelTest : BehaviorSpec(
             }
         }
 
-        // -------------------------------------------------------------------------
-        // Field isolation
-        // -------------------------------------------------------------------------
-
         given("ConfigViewModel with columns already set") {
-
             `when`("RowsChanged is dispatched") {
                 then("columns and columnsError are untouched") {
                     viewModel.command(Command.ColumnsChanged("4"))
